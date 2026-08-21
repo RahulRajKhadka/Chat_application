@@ -1,6 +1,6 @@
-import amqp from "amqplib";
+import amql from "amqplib";
 
-let channel: amqp.Channel;
+let channel: amql.Channel;
 
 export const connectRabbitMQ = async () => {
   try {
@@ -12,7 +12,7 @@ export const connectRabbitMQ = async () => {
       throw new Error("Missing required RabbitMQ environment variables");
     }
 
-    const connection = await amqp.connect({
+    const connection = await amql.connect({
       protocol: "amqp",
       hostname: host,
       port: 5672,
@@ -30,7 +30,7 @@ export const connectRabbitMQ = async () => {
   }
 };
 
-export const getChannel = (): amqp.Channel => {
+export const getChannel = (): amql.Channel => {
   if (!channel) {
     throw new Error("RabbitMQ channel not initialized. Call connectRabbitMQ first.");
   }
