@@ -5,6 +5,7 @@ import dns from "node:dns";
 import { createClient } from "redis";
 
 import userRoutes from "./routes/user.js";
+import { connectRabbitMQ } from "./config/rabbitmq.js";
 
 dotenv.config();
 
@@ -28,8 +29,10 @@ export const redisClient = createClient({
 try {
   await connectDb();
   await redisClient.connect();
-
   console.log("connected to redis");
+
+  await connectRabbitMQ();
+  console.log("connected to rabbitmq");
 
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
