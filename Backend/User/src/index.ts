@@ -7,6 +7,7 @@ import { createClient } from "redis";
 import userRoutes from "./routes/user.js";
 import { connectRabbitMQ } from "./config/rabbitmq.js";
 
+
 dotenv.config();
 
 const PORT = process.env.PORT || 5000;
@@ -14,9 +15,12 @@ const REDIS_URL = process.env.REDIS_URL;
 
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
+
+
 const app = express();
 
 app.use("/api/v1", userRoutes);
+app.use(express.json())
 
 if (!REDIS_URL) {
   throw new Error("REDIS_URL is not defined in environment variables");
