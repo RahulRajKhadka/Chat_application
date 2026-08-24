@@ -1,8 +1,9 @@
+import type { RequestHandler } from "express";
 import { publishToQueue } from "../config/rabbitmq.js";
 import TryCatch from "../config/TryCatch.js";
 import { redisClient } from "../index.js";
 
-export const loginUser= TryCatch(async(req,res)=>{
+export const loginUser:RequestHandler= TryCatch(async(req,res)=>{
     const {email}=req.body
 
     const RateLimitKey=`otp:ratelimit:${email}`
@@ -34,3 +35,4 @@ export const loginUser= TryCatch(async(req,res)=>{
         message:"OTP sent to your mail"
     })
 })
+
