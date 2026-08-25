@@ -18,9 +18,10 @@ dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
 
 const app = express();
+app.use(express.json())
 
 app.use("/api/v1", userRoutes);
-app.use(express.json())
+
 
 if (!REDIS_URL) {
   throw new Error("REDIS_URL is not defined in environment variables");
