@@ -1,9 +1,11 @@
 import express, { type Router } from "express"
-import { loginUser, verifyUser } from "../controllers/user.js";
+import { loginUser, myProfile, verifyUser } from "../controllers/user.js";
+import { isAuth } from "../middlewares/isAuth.js";
 
 const router: Router =express.Router()
 
 
 router.post("/login",loginUser)
 router.post("/verify",verifyUser)
-export default router;
+router.get("/me",isAuth,myProfile);
+export default router;``
