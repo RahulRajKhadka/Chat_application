@@ -4,6 +4,9 @@ import TryCatch from "../config/TryCatch.js";
 import { redisClient } from "../index.js";
 import { generateToken } from "../config/generateToken.js";
 import { User } from "../model/User.js";
+import type { AuthenticatedRequest } from "../middlewares/isAuth.js";
+
+import type { Response } from "express";
 
 export const loginUser: RequestHandler = TryCatch(async (req, res) => {
     const { email } = req.body;
@@ -86,3 +89,10 @@ export const verifyUser: RequestHandler = TryCatch(async (req, res) => {
         user,
     });
 });
+
+export const myProfile: RequestHandler = TryCatch<AuthenticatedRequest>(
+    async (req, res: Response) => {
+        const user = req.user;
+        res.json(user);
+    }
+);
